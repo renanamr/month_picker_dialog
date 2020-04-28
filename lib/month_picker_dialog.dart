@@ -65,6 +65,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
       _upDownButtonEnableStatePublishSubject;
 
   Widget _selector;
+  var dateNow;
   DateTime selectedDate, _firstDate, _lastDate;
 
   @override
@@ -177,10 +178,13 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
                         child: new StreamBuilder<UpDownPageLimit>(
                           stream: _upDownPageLimitPublishSubject,
                           initialData: const UpDownPageLimit(0, 0),
-                          builder: (_, snapshot) => Text(
-                            '${DateFormat.y(locale).format(DateTime(snapshot.data.upLimit))}',
-                            style: theme.primaryTextTheme.headline,
-                          ),
+                          builder: (_, snapshot) {
+                            dateNow = DateFormat.y(locale).format(DateTime(snapshot.data.upLimit));
+                            Text(
+                              '${dateNow}',
+                              style: theme.primaryTextTheme.headline,
+                            ),
+                          }
                         ),
                       )
                     : new StreamBuilder<UpDownPageLimit>(
